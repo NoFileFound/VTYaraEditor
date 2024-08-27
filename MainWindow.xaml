@@ -1,0 +1,54 @@
+﻿<Window x:Class="VTYaraEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{StaticResource TitleText}" 
+        Height="450" 
+        Width="800"
+        ResizeMode="NoResize">
+    <Grid>
+        <Menu VerticalAlignment="Top" HorizontalAlignment="Stretch">
+            <MenuItem Header="{StaticResource OptionFile}">
+                <MenuItem Header="{StaticResource OpenText}" Click="OpenFileButton_Click"/>
+                <MenuItem Header="{StaticResource SaveText}" Click="SaveFileButton_Click"/>
+            </MenuItem>
+            <MenuItem Header="{StaticResource OptionTools}" IsEnabled="False">
+
+            </MenuItem>
+        </Menu>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,24,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Name="LineNumbers"
+                   VerticalAlignment="Top"
+                   FontFamily="Consolas"
+                   Foreground="Gray"
+                   Padding="5"
+                   TextAlignment="Right"
+                   Grid.Column="0"
+                   Margin="5"
+                   />
+
+                <RichTextBox x:Name="Editor"
+                             VerticalScrollBarVisibility="Auto"
+                             HorizontalScrollBarVisibility="Disabled"
+                             AcceptsReturn="True"
+                             TextChanged="Editor_TextChanged"
+                             AcceptsTab="True"
+                             VerticalContentAlignment="Top"
+                             Grid.Column="1"
+                             InputMethod.IsInputMethodEnabled="False"
+                             InputMethod.IsInputMethodSuspended="True">
+                    <FlowDocument 
+                        PageWidth="738" 
+                        MaxPageWidth="738">
+                    </FlowDocument>
+                </RichTextBox>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Window>

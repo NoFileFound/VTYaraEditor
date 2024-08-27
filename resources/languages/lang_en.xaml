@@ -1,0 +1,12 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+	<!-- English language -->
+    <sys:String x:Key="TitleText">Yara Editor</sys:String>
+
+    <sys:String x:Key="OptionFile">File</sys:String>
+    <sys:String x:Key="OpenText">Open</sys:String>
+    <sys:String x:Key="SaveText">Save</sys:String>
+    
+    <sys:String x:Key="OptionTools">Tools</sys:String>
+
+</ResourceDictionary>
