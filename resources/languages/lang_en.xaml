@@ -3,10 +3,23 @@
 	<!-- English language -->
     <sys:String x:Key="TitleText">Yara Editor</sys:String>
 
-    <sys:String x:Key="OptionFile">File</sys:String>
-    <sys:String x:Key="OpenText">Open</sys:String>
-    <sys:String x:Key="SaveText">Save</sys:String>
+    <sys:String x:Key="MenuFile">File</sys:String>
+    <sys:String x:Key="MenuOpenButtonItem">Open</sys:String>
+    <sys:String x:Key="MenuSaveButtonItem">Save</sys:String>
+    <sys:String x:Key="MenuExitButtonItem">Exit</sys:String>
+
+    <sys:String x:Key="MenuTools">Tools</sys:String>
+    <sys:String x:Key="MenuMatchButtonItem">Find Matches</sys:String>
+
+    <sys:String x:Key="MenuVT">VT</sys:String>
+    <sys:String x:Key="MenuImportButtonItem">Import</sys:String>
+    <sys:String x:Key="MenuUploadButtonItem">Upload</sys:String>
+
+    <sys:String x:Key="ClearButtonItem">Clear</sys:String>
+    <sys:String x:Key="CopyButtonItem">Copy</sys:String>
+    <sys:String x:Key="CutButtonItem">Cut</sys:String>
+    <sys:String x:Key="PasteButtonItem">Paste</sys:String>
+    <sys:String x:Key="FormatButtonItem">Format</sys:String>
     
-    <sys:String x:Key="OptionTools">Tools</sys:String>
 
 </ResourceDictionary>

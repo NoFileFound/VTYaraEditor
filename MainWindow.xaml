@@ -7,12 +7,17 @@
         ResizeMode="NoResize">
     <Grid>
         <Menu VerticalAlignment="Top" HorizontalAlignment="Stretch">
-            <MenuItem Header="{StaticResource OptionFile}">
-                <MenuItem Header="{StaticResource OpenText}" Click="OpenFileButton_Click"/>
-                <MenuItem Header="{StaticResource SaveText}" Click="SaveFileButton_Click"/>
+            <MenuItem Header="{StaticResource MenuFile}" IsEnabled="True">
+                <MenuItem Header="{StaticResource MenuOpenButtonItem}" Click="OpenFileButton_Click"/>
+                <MenuItem Name="saveFileItemName" Header="{StaticResource MenuSaveButtonItem}" Click="SaveFileButton_Click" IsEnabled="False"/>
+                <MenuItem Header="{StaticResource MenuExitButtonItem}" Click="ExitMenuButton_Click"/>
             </MenuItem>
-            <MenuItem Header="{StaticResource OptionTools}" IsEnabled="False">
-
+            <MenuItem Header="{StaticResource MenuVT}" IsEnabled="True">
+                <MenuItem Header="{StaticResource MenuImportButtonItem}" Click="ImportVTYaraButton_Click"/>
+                <MenuItem Header="{StaticResource MenuUploadButtonItem}" IsEnabled="False"/>
+            </MenuItem>
+            <MenuItem Header="{StaticResource MenuTools}" IsEnabled="True">
+                <MenuItem Header="{StaticResource MenuMatchButtonItem}"  IsEnabled="False"/>
             </MenuItem>
         </Menu>
 
@@ -42,11 +47,22 @@
                              VerticalContentAlignment="Top"
                              Grid.Column="1"
                              InputMethod.IsInputMethodEnabled="False"
-                             InputMethod.IsInputMethodSuspended="True">
+                             InputMethod.IsInputMethodSuspended="True"
+                             Block.LineHeight="2">
                     <FlowDocument 
                         PageWidth="738" 
                         MaxPageWidth="738">
                     </FlowDocument>
+                    <RichTextBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="{StaticResource CutButtonItem}" Command="ApplicationCommands.Cut" />
+                            <MenuItem Header="{StaticResource CopyButtonItem}" Command="ApplicationCommands.Copy" />
+                            <MenuItem Header="{StaticResource PasteButtonItem}" Command="ApplicationCommands.Paste" />
+                            <Separator />
+                            <MenuItem Header="{StaticResource ClearButtonItem}" Name="clearTextItemName" Click="ClearTextButton_Click" IsEnabled="false" />
+                            <MenuItem Header="{StaticResource FormatButtonItem}" Name="formatTextItemName" IsEnabled="false" />
+                        </ContextMenu>
+                    </RichTextBox.ContextMenu>
                 </RichTextBox>
             </Grid>
         </ScrollViewer>

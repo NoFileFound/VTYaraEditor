@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -11,11 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VTYaraEditor.views;
 
 namespace VTYaraEditor
 {
     public partial class MainWindow : Window
     {
+        private ImportYARA? importYaraWindow;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -24,13 +28,18 @@ namespace VTYaraEditor
 
         private void Editor_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if(clearTextItemName != null) 
+                clearTextItemName.IsEnabled = (getEditorText().Length > 0);
+
+            if(saveFileItemName != null)
+                saveFileItemName.IsEnabled = (getEditorText().Length > 0);
+
             UpdateLineNumbers();
         }
 
-        private void UpdateLineNumbers()
+        public void UpdateLineNumbers()
         {
             LineNumbers.Text = string.Empty;
-            var rect = Editor.Document.ContentStart.GetCharacterRect(LogicalDirection.Forward);
             double lineHeight = Editor.FontSize * 1.2;
             double contentHeight = Editor.ExtentHeight;
             int totalLines = (int)(contentHeight / lineHeight);
@@ -44,7 +53,7 @@ namespace VTYaraEditor
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                Filter = "YARA Files (*.yar;*.yara)|*.yar;*.yara",
+                Filter = "Yara Rules (*.yar;*.yara)|*.yar;*.yara",
                 Title = "Open YARA File"
             };
 
@@ -52,7 +61,8 @@ namespace VTYaraEditor
             {
                 Editor.Document.Blocks.Clear();
                 Editor.Document.Blocks.Add(new Paragraph(new Run(File.ReadAllText(openFileDialog.FileName))));
-                UpdateLineNumbers();
+                //UpdateLineNumbers();
+                /// FixMe: Line count does not appear when open a file.
             }
         }
 
@@ -60,15 +70,49 @@ namespace VTYaraEditor
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
-                Filter = "YARA Files (*.yar;*.yara)|*.yar;*.yara",
+                Filter = "Yara Rules (*.yar;*.yara)|*.yar;*.yara",
                 Title = "Save YARA File",
-                DefaultExt = ".yar"
+                DefaultExt = ".yar",
+                FileName = "Untitled01.yara"
             };
 
             if (saveFileDialog.ShowDialog() == true)
             {
-                File.WriteAllText(saveFileDialog.FileName, new TextRange(Editor.Document.ContentStart, Editor.Document.ContentEnd).Text);
+                File.WriteAllText(saveFileDialog.FileName, getEditorText());
             }
+        }
+
+        private void ExitMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void ImportVTYaraButton_Click(Object sender, RoutedEventArgs e)
+        {
+            if(importYaraWindow == null)
+            {
+                importYaraWindow = new ImportYARA();
+                importYaraWindow.Closed += (s, args) => importYaraWindow = null;
+                importYaraWindow.Show();
+                Close();
+            }
+        }
+
+        private void ClearTextButton_Click(Object sender, RoutedEventArgs e)
+        {
+            if(Editor != null)
+                Editor.Document.Blocks.Clear();
+        }
+
+
+        private String getEditorText()
+        {
+            if (Editor != null)
+            {
+                TextRange textRange = new TextRange(Editor.Document.ContentStart, Editor.Document.ContentEnd);
+                return textRange.Text;
+            }
+            return "";
         }
     }
 }
